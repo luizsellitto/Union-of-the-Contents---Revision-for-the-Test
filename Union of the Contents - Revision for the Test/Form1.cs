@@ -21,12 +21,23 @@ namespace Union_of_the_Contents___Revision_for_the_Test
 
         private void bt_calc_Click(object sender, EventArgs e)
         {
-            if (ValidaCampus())
+            try
             {
-                IMC person = new IMC(Convert.ToDouble(mask_alt.Text), Convert.ToDouble(tx_peso));
-                (double imc, string classificacao, string grau) = person.Imc();
-                lb_imc.Text = $"O seu imc é igual a {imc}, a classificação é igual a {classificacao}" +
-                    $"\n e o grau é igual a {grau}";
+                if (ValidaCampus())
+                {
+                    IMC person = new IMC(Convert.ToDouble(mask_alt.Text), Convert.ToDouble(tx_peso.Text));
+                    (double imc, string classificacao, string grau) = person.Imc();
+                    lb_imc.Text = $"O seu imc é igual a {imc}, a classificação é igual a {classificacao}" +
+                        $"\n e o grau é igual a {grau}";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Algum erro ocorreu\n" + ex.Message);
+            }
+            finally
+            {
+
             }
         }
 
@@ -76,6 +87,7 @@ namespace Union_of_the_Contents___Revision_for_the_Test
                 verificar = false;
                 errorProvider3.SetError(tx_peso, "Campo obrigatório!");
             }
+
             return verificar;
 
         }
